@@ -1,0 +1,4 @@
+chardet==5.2.0
+clr==1.0.3
+PySide6==6.8.1.1
+pythonnet==3.0.5
