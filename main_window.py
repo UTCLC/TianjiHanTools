@@ -75,7 +75,7 @@ class LocalizationIDE(QMainWindow):
         self.file_explorer = FileExplorer()
         self.file_explorer.file_double_clicked.connect(self.open_file)
         self.menu_bar.file_explorer_action.connect(self.file_explorer.show_or_close)
-        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.file_explorer)
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.file_explorer)
 
         # 初始化工具栏
         self.tool_bar = MainToolBar()
