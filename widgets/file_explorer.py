@@ -41,17 +41,16 @@ class FileExplorer(QDockWidget):
                 node.setData(0, Qt.ItemDataRole.UserRole, f"file:{rel_path}")
 
     def _populate_tree_gm(self, parent, path, base_data):
-        import modules.UML as uml
+        from modules.UML import GameMakerLib as gml
         rel_path = os.path.relpath(path, base_data['source'])
-        lib = uml.GameMakerLib()
-        self.data[0][rel_path] = lib.Read(base_data['source'] + "/" + rel_path)
-        self.data[1][rel_path] = lib.Read(base_data['target'] + "/" + rel_path)
+        self.data[0][rel_path] = gml.Read(base_data['source'] + "/" + rel_path)
+        self.data[1][rel_path] = gml.Read(base_data['target'] + "/" + rel_path)
         pnode = QTreeWidgetItem(parent)
         pnode.setText(0, "Strings")
-        for i in self.data[0][rel_path].Strings:
+        for i in range(len(self.data[0][rel_path].Strings)):
             node = QTreeWidgetItem(pnode)
-            node.setText(0, str(i))
-            node.setData(0, Qt.ItemDataRole.UserRole, f"gm:{rel_path}/Strings/{i}")
+            node.setText(0, str(self.data[0][rel_path].Strings[i]))
+            node.setData(0, Qt.ItemDataRole.UserRole, f"gm:{rel_path}/GMStrings/{i}")
             
 
     def show_or_close(self):

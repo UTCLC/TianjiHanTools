@@ -8,6 +8,8 @@ import json
 import datetime
 from editors.text_editor import TextEditor
 
+from core.file_save import FileSave as fs
+
 class LocalizationIDE(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -38,6 +40,7 @@ class LocalizationIDE(QMainWindow):
     def _stage2_init(self):
         from editors.json_editor import JSONEditor
         from editors.csv_editor import CSVEditor
+        from editors.gm.gm_strings_editor import GMStringsEditor
 
         from core.project_manager import ProjectManager
 
@@ -45,7 +48,8 @@ class LocalizationIDE(QMainWindow):
         self.editor_types = {
             'txt': TextEditor,
             'json': JSONEditor,
-            'csv': CSVEditor
+            'csv': CSVEditor,
+            'GMStrings': GMStringsEditor
         }
         # 初始化核心模块
         self.project_manager = ProjectManager()
@@ -176,31 +180,38 @@ class LocalizationIDE(QMainWindow):
                 return
             source_path = os.path.join(self.project_manager.current_project['source'], rel_path)
             target_path = os.path.join(self.project_manager.current_project['target'], rel_path)
+            editor = editor_class(source_path, target_path)
+            tab = QWidget()
+            tab.rel_path = rel_path  # 存储关联文件路径
+            layout = QVBoxLayout(tab)
+            layout.addWidget(editor)
+            save_btn = QPushButton("保存")
+            save_btn.clicked.connect(lambda: fs.save_file_raw(self, target_path, editor.get_content()))
+            layout.addWidget(save_btn)
+            self.tabs.addTab(tab, os.path.basename(rel_path))
+            self.current_editors[rel_path] = tab
+            self.tabs.setCurrentWidget(tab)
 
-
-
-        editor = editor_class(source_path, target_path)
-        tab = QWidget()
-        tab.rel_path = rel_path  # 存储关联文件路径
-        layout = QVBoxLayout(tab)
-        layout.addWidget(editor)
-        
-        save_btn = QPushButton("保存")
-        save_btn.clicked.connect(lambda: self._save_file(target_path, editor.get_content()))
-        layout.addWidget(save_btn)
-
-        self.tabs.addTab(tab, os.path.basename(rel_path))
-        self.current_editors[rel_path] = tab
-        self.tabs.setCurrentWidget(tab)
-
-    def _save_file(self, path, content):
-        try:
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-            with open(path, 'w', encoding='utf-8') as f:
-                f.write(content)
-            QMessageBox.information(self, "成功", "文件保存成功！")
-        except Exception as e:
-            QMessageBox.critical(self, "错误", f"保存失败：{str(e)}")
+        if type == "gm":
+            data_path, ext = rel_path.split('.win/',1)
+            ext, id = ext.split('/',1)
+            editor_class = self.editor_types.get(ext)
+            if rel_path in self.current_editors:
+                self.tabs.setCurrentWidget(self.current_editors[rel_path])
+                return
+            data_path = data_path + ".win"
+            editor = editor_class(self.file_explorer.data[0][data_path], self.file_explorer.data[1][data_path], id)
+            tab = QWidget()
+            tab.rel_path = rel_path
+            layout = QVBoxLayout(tab)
+            layout.addWidget(editor)
+            save_btn = QPushButton("写入 data.win")
+            target_path = os.path.join(self.project_manager.current_project['target'], data_path)
+            save_btn.clicked.connect(lambda: fs.save_file_gm(self, target_path, self.file_explorer.data[1][data_path]))
+            layout.addWidget(save_btn)
+            self.tabs.addTab(tab, f"{ext}:{id}")
+            self.current_editors[rel_path] = tab
+            self.tabs.setCurrentWidget(tab)
 
     def close_tab(self, index):
         """ 关闭指定索引的标签页 """
