@@ -108,7 +108,7 @@ class FileExplorer(QDockWidget):
             node.setText(0, item_name)
             if os.path.isdir(item_path):
                 self._populate_tree(node, item_path, base_data)
-            elif item_name.endswith('.win'):
+            elif item_name.endswith('.win') or item_name.endswith('.droid') or item_name.endswith('.ios'):
                 self._populate_tree_gm(node, item_path, base_data)
             else:
                 rel_path = os.path.relpath(item_path, base_data['source'])
