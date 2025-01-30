@@ -199,19 +199,24 @@ class LocalizationIDE(QMainWindow):
             self.tabs.setCurrentWidget(tab)
 
         if type == "gm":
-            data_path, ext = rel_path.split('.win/',1)
+            ext_using = ".win"
+            if (rel_path.contains(".droid")):
+                ext_using = ".droid"
+            elif (rel_path.contains(".ios")):
+                ext_using = ".ios"
+            data_path, ext = rel_path.split(ext_using+'/',1)
             ext, id = ext.split('/',1)
             editor_class = self.editor_types.get(ext)
             if rel_path in self.current_editors:
                 self.tabs.setCurrentWidget(self.current_editors[rel_path])
                 return
-            data_path = data_path + ".win"
+            data_path = data_path + ext_using
             editor = editor_class(self.file_explorer.data[0][data_path], self.file_explorer.data[1][data_path], id)
             tab = QWidget()
             tab.rel_path = rel_path
             layout = QVBoxLayout(tab)
             layout.addWidget(editor)
-            save_btn = QPushButton("写入 data.win")
+            save_btn = QPushButton("写入 data")
             target_path = os.path.join(self.project_manager.current_project['target'], data_path)
             save_btn.clicked.connect(lambda: fs.save_file_gm(self, target_path, self.file_explorer.data[1][data_path]))
             layout.addWidget(save_btn)
