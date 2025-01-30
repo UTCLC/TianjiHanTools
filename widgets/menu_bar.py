@@ -8,6 +8,7 @@ class ProjectMenuBar(QMenuBar):
     save_project = Signal()
     file_explorer_action = Signal()
     exit_action = Signal()
+    txt_split_action = Signal(object)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -62,5 +63,10 @@ class ProjectMenuBar(QMenuBar):
 
 
         tools_menu = self.addMenu('工具')
+        txt_split_action = QAction('本地化文本规范化', self)
+        txt_split_action.triggered.connect(lambda: self.txt_split_action.emit(self.parent()))
+        tools_menu.addAction(txt_split_action)
+
+
         scripts_menu = self.addMenu('脚本')
         help_menu = self.addMenu('帮助')

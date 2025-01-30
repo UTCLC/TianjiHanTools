@@ -7,7 +7,7 @@ import os
 import json
 import datetime
 from editors.text_editor import TextEditor
-
+from tools.tools_register import ToolsRegister
 from core.file_save import FileSave as fs
 
 class LocalizationIDE(QMainWindow):
@@ -41,7 +41,7 @@ class LocalizationIDE(QMainWindow):
         from editors.json_editor import JSONEditor
         from editors.csv_editor import CSVEditor
         from editors.gm.gm_strings_editor import GMStringsEditor
-
+        
         from core.project_manager import ProjectManager
 
         self.current_editors = {}
@@ -56,6 +56,9 @@ class LocalizationIDE(QMainWindow):
         self.project_manager.project_loaded.connect(self.on_project_loaded)
         self.project_manager.project_saved.connect(self.on_project_saved)
         self.project_manager.error_occurred.connect(self.show_error)
+
+        self.tools_register = ToolsRegister()
+
         self.init_ui()
 
     def init_ui(self):
@@ -69,6 +72,9 @@ class LocalizationIDE(QMainWindow):
         self.menu_bar.open_project.connect(self.project_manager.open_project)
         self.menu_bar.save_project.connect(self.project_manager.save_project)
         self.menu_bar.exit_action.connect(self.exit)
+
+        self.menu_bar.txt_split_action.connect(self.tools_register.ToolTxTFormatLate)
+
         self.setMenuBar(self.menu_bar)
 
         # 文件浏览器

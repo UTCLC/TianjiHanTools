@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Signal
 
-class BaseEditor(QWidget):
+class GMBaseEditor(QWidget):
     modified = Signal(bool)
     def __init__(self, source_data, target_data, id):
         super().__init__()

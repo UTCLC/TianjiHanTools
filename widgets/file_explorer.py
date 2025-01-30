@@ -25,7 +25,7 @@ class FileExplorer(QDockWidget):
         self.tree = QTreeWidget()
         self.tree.setHeaderLabel("项目文件")
         self.tree.itemDoubleClicked.connect(self.on_item_double_clicked)
-        
+
         # 主容器布局
         container = QWidget()
         main_layout = QVBoxLayout(container)
@@ -119,12 +119,22 @@ class FileExplorer(QDockWidget):
         rel_path = os.path.relpath(path, base_data['source'])
         self.data[0][rel_path] = gml.Read(base_data['source'] + "/" + rel_path)
         self.data[1][rel_path] = gml.Read(base_data['target'] + "/" + rel_path)
+
         pnode = QTreeWidgetItem(parent)
         pnode.setText(0, "Strings")
         for i in range(len(self.data[0][rel_path].Strings)):
             node = QTreeWidgetItem(pnode)
-            node.setText(0, str(self.data[0][rel_path].Strings[i]))
+            node.setText(0, self.data[0][rel_path].Strings[i].Content)
+            node.setToolTip(0, str(i))
             node.setData(0, Qt.ItemDataRole.UserRole, f"gm:{rel_path}/GMStrings/{i}")
+
+        pnode = QTreeWidgetItem(parent)
+        pnode.setText(0, "Fonts")
+        for i in range(len(self.data[0][rel_path].Fonts)):
+            node = QTreeWidgetItem(pnode)
+            node.setText(0, self.data[0][rel_path].Fonts[i].Name.Content)
+            node.setToolTip(0, str(i))
+            node.setData(0, Qt.ItemDataRole.UserRole, f"gm:{rel_path}/GMFonts/{i}")
 
     def show_or_close(self):
         if self.isVisible():

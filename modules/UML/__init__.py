@@ -7,6 +7,7 @@ r_path = os.path.dirname(os.path.abspath(__file__))
 clr.AddReference(r_path + r"\UndertaleModLib.dll")
 import UndertaleModLib # type: ignore
 import UndertaleModLib.Models as mod # type: ignore
+import UndertaleModLib.Util as util # type: ignore
 from System.IO import FileInfo, FileStream, FileMode, FileAccess, FileShare # type: ignore
 
 class GameMakerLib:
@@ -33,3 +34,9 @@ class GameMakerLib:
 
     def String(str):
         return mod.UndertaleString(str)
+    
+    def TextureWorker():
+            return util.TextureWorker
+    
+    def UndertaleFont():
+        return mod.UndertaleFont
