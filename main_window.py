@@ -200,9 +200,9 @@ class LocalizationIDE(QMainWindow):
 
         if type == "gm":
             ext_using = ".win"
-            if (rel_path.contains(".droid")):
+            if (".droid" in rel_path):
                 ext_using = ".droid"
-            elif (rel_path.contains(".ios")):
+            elif (".ios" in rel_path):
                 ext_using = ".ios"
             data_path, ext = rel_path.split(ext_using+'/',1)
             ext, id = ext.split('/',1)
