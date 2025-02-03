@@ -4,6 +4,7 @@ import json
 import datetime
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QFileDialog
+import loc
 class ProjectManager(QObject):
     project_loaded = Signal(dict)  # 工程加载成功信号
     project_saved = Signal()       # 工程保存成功信号
@@ -15,10 +16,10 @@ class ProjectManager(QObject):
 
     def new_project(self, parent_window):
         """创建新工程"""
-        src_folder = self._get_directory(parent_window, "选择源文件夹")
+        src_folder = self._get_directory(parent_window, loc.translate("locSelectSrcFolder"))
         if not src_folder: return
 
-        project_folder = self._get_directory(parent_window, "选择工程文件夹")
+        project_folder = self._get_directory(parent_window, loc.translate("locSelectProjFolder"))
         if not project_folder: return
 
         try:
@@ -26,16 +27,16 @@ class ProjectManager(QObject):
             self.current_project = project_data
             self.project_loaded.emit(project_data)
         except Exception as e:
-            self.error_occurred.emit(f"创建工程失败：{str(e)}")
+            self.error_occurred.emit(loc.translate("locProjectCreateFailed")+str(e))
 
     def open_project(self, parent_window):
         """打开已有工程"""
-        project_folder = self._get_directory(parent_window, "选择工程文件夹")
+        project_folder = self._get_directory(parent_window, loc.translate("locSelectProjFolder"))
         if not project_folder: return
 
         project_file = os.path.join(project_folder, 'project.json')
         if not os.path.exists(project_file):
-            self.error_occurred.emit("无效的工程目录")
+            self.error_occurred.emit(loc.translate("locInvalidProjDir"))
             return
 
         try:
@@ -47,12 +48,12 @@ class ProjectManager(QObject):
             self.current_project = project_data
             self.project_loaded.emit(project_data)
         except Exception as e:
-            self.error_occurred.emit(f"加载工程失败：{str(e)}")
+            self.error_occurred.emit(loc.translate("locProjectLoadFailed")+str(e))
 
     def save_project(self):
         """保存当前工程"""
         if not self.current_project:
-            self.error_occurred.emit("没有正在编辑的工程")
+            self.error_occurred.emit(loc.translate("locNoProjEditing"))
             return
 
         try:
@@ -64,7 +65,7 @@ class ProjectManager(QObject):
             
             self.project_saved.emit()
         except Exception as e:
-            self.error_occurred.emit(f"保存失败：{str(e)}")
+            self.error_occurred.emit(loc.translate("locProjectLoadFailed")+str(e))
 
     def _create_project_structure(self, src_folder, project_folder):
         """创建工程目录结构"""
@@ -98,4 +99,4 @@ class ProjectManager(QObject):
         required_dirs = ['source', 'target']
         for d in required_dirs:
             if not os.path.isdir(os.path.join(project_data['project_path'], d)):
-                raise ValueError(f"缺失必需目录: {d}")
+                raise ValueError(loc.translate("locNecessaryDirMissing")+d)

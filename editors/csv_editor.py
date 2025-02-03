@@ -3,6 +3,7 @@ from PySide6.QtWidgets import (QTableWidget, QTableWidgetItem, QHBoxLayout)
 from .base_editor import BaseEditor
 from PySide6.QtCore import Qt
 from utils import detect_encoding
+import loc
 
 class CSVEditor(BaseEditor):
     def init_ui(self):
@@ -46,8 +47,8 @@ class CSVEditor(BaseEditor):
         # 设置表头
         headers = []
         for i in range(col_count):
-            headers.append(f"源列 {i+1}")
-            headers.append(f"目标列 {i+1}")
+            headers.append(f"{loc.translate("locSourceColumn")} {i+1}")
+            headers.append(f"{loc.translate("locTargetColumn")} {i+1}")
         self.table.setHorizontalHeaderLabels(headers)
 
         # 填充数据

@@ -1,0 +1,105 @@
+keys,en,zh_CN,zh_TW
+locLangName,English,中文（简体）,中文（繁體）
+
+locAppName,TianjiHanTools,天机汉化工具,天機漢化工具
+locLoadingCore,Loading Core Component...,正在加载核心组件...,正在加載核心組件
+locReady,Ready to go,准备就绪,準備就緒
+locConfirmQuit,Confirm to quit,确认退出,確認退出
+locConfirmQuitDiag,Are you sure to quit?,确定要退出程序吗？,確定要退出程式嗎？
+
+locSuccess,Success,成功,成功
+locProjectSaved,Project saved!,工程保存成功！,工程儲存成功！
+locProjectSaveFailed,Project saving failed: ,工程保存失败：,工程儲存失敗：
+locProjectLoaded,Project loaded!,工程加载成功！,工程加載成功！
+locProjectLoadFailed,Project loading failed: ,工程加载失败：,工程加載失敗：
+locProjectCreateFailed,Project creating failed: ,创建工程失败：,創建工程失敗：
+locError,Error,错误,錯誤
+
+locSelectProjFolder,Select project folder,选择工程文件夹,選擇工程資料夾
+locSelectSrcFolder,Select source folder,选择源文件夹,選擇源資料夾
+locInvalidProjDir,Invalid project directory.,无效的工程目录,無效的工程目錄
+
+locMainToolbar,Main toolbar,主工具栏,主工具欄
+locFile,File,文件,檔案
+locQuit,Quit,退出,退出
+locAdd,Add,添加,添加
+locEdit,Edit,编辑,編輯
+locDelete,Delete,删除,刪除
+locBuild,Build,构建,構建
+locView,View,视图,試圖
+locTool,Tool,工具,工具
+locScript,Script,脚本,脚本
+locHelp,Help,帮助,幫助
+
+locFileExplorer,File Explorer,文件浏览器,檔案瀏覽器
+locExport,Export,导出,匯出
+locNew,New,新建,新建
+locOpen,Open,打开,打開
+locSave,Save,保存,儲存
+locRun,Run,运行,運行
+locNewInfo,New project,新建工程,新建工程
+locOpenInfo,Open project,打开工程,打開工程
+locSaveInfo,Save project,保存工程,儲存工程
+locRunInfo,Run project,运行工程,運行工程
+locNewInfoKey,New project (Ctrl+N),新建工程 (Ctrl+N),新建工程 (Ctrl+N)
+locOpenInfoKey,Open project (Ctrl+O),打开工程 (Ctrl+O),打開工程 (Ctrl+O)
+locSaveInfoKey,Save project (Ctrl+S),保存工程 (Ctrl+S),儲存工程 (Ctrl+S)
+locRunInfoKey,Run project (F5),运行工程 (F5),運行工程 (F5)
+locWriteIntoData,Write into data,写入 data,寫入 data
+locNoProjEditing,There is no project editing.,没有正在编辑的工程,沒有正在編輯的工程
+locNecessaryDirMissing,Neccessary directory is missing: ,缺失必需目录：,缺失必須目錄：
+
+locKey,Key,键,鍵
+locSrcTxt,Source text,源文本,源文本
+locTarTxt,Target text,目标文本,目標文本
+locUnable2LoadSrcTxt,Unable to load source text.,无法读取源文本,無法讀取源文本
+locUnable2LoadSrcFile,Unable to load source file.,无法读取源文件,無法讀取源檔案
+locSourceColumn,Source column,源列,源列
+locTargetColumn,Target column,目标列,目標列
+locPreferences,Preferences,首选项,首選項
+locLocalizedStrStandardization,Localized Strings Standardization,本地化文本规范化,在地化文本規範化
+locSearch,Search...,搜索...,搜尋...
+locRegEx,RegEx,正则表达式,規則運算式
+locProjectFile,Project file,项目文件,專案檔案
+
+locConvert,Convert,转换,轉換
+locMerge,Merge,合并,合并
+locUpgrade,Upgrade,升级,升級
+locClassification,Classification,分类管理,分類管理
+
+locConvertTxt2Json,Convert TXT to JSON,转换 TXT 到 JSON,轉換 TXT 到 JSON
+locMergeJson2Txt,Merge JSON to TXT,合并 JSON 到 TXT,合并 JSON 到 TXT
+locSelectDir,Select directory,选择目录,選擇目錄
+locSelectFile,Select file,选择文件,選擇檔案
+locSaveFile,Save file,保存文件,儲存檔案
+locSelectInputFile,Select input file,选择输入文件,選擇輸入檔案
+locSelectOutputDir,Select output directory,选择输出目录,選擇輸出目錄
+locInputFile,Input file: ,输入文件,輸入檔案：
+locOutputDir,Output directory: ,输出目录,輸出目錄:
+locSelectInputDir,Select input directory,选择输入目录,選擇輸入目錄
+locSelectOutputFile,Select output file,选择输出文件,選擇輸出檔案
+locInputDir,Input directory: ,输入目录：,輸入目錄：
+locOutputFile,Output file: ,输出文件：,輸出檔案：
+
+locUpgradeTxt,Upgrade Texts,升级文本,升級文本
+locSelectOldTxt,Select old TXT file,选择旧 TXT 文件,選擇舊 TXT 檔案
+locSelectOldJson,Select old JSON file,选择旧 JSON 文件,選擇舊 JSON 檔案
+locSelectNewTxt,Select new TXT file,选择新 TXT 文件,選擇新 TXT 檔案
+locOldTxt,Old TXT file: ,旧 TXT 文件：,舊 TXT 檔案：
+locOldJson,Old JSON file: ,旧 JSON 文件：,舊 JSON 檔案：
+locNewTxt,New TXT file: ,新 TXT 文件：,新 TXT 檔案：
+
+locMoveUp,Move up,上移,上移
+locMoveDn,Move down,下移,下移
+locName,Name,名称,名稱
+locNameInfo,Classification name,分类名称,分類名稱
+locType,Type,类型,類型
+locTypeInfo,Condition type,条件类型,條件類型
+locParam,Param,参数,參數
+locRuleEditor,Rule editor,规则编辑器,規則編輯器
+locAddRule,Add rule,添加规则,添加規則
+
+locFinished,Finished,完成,完成
+locConvertFinished,Convert finished.,转换完成,轉換完成
+locMergeFinished,Merge finished.,合并完成,合并完成
+locUpgradeFinished,Upgrade finished.,升级完成,升級完成

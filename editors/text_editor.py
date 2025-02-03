@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QHBoxLayout, QPlainTextEdit
 from .base_editor import BaseEditor
+import loc
 
 class TextEditor(BaseEditor):
     def _handle_modify(self):
@@ -13,7 +14,7 @@ class TextEditor(BaseEditor):
             with open(self.source_path, 'r', encoding='utf-8') as f:
                 self.source_editor.setPlainText(f.read())
         except:
-            self.source_editor.setPlainText("无法读取源文件")
+            self.source_editor.setPlainText(loc.translate("locUnable2LoadSrcFile"))
         self.source_editor.setReadOnly(True)
         
         self.target_editor = QPlainTextEdit()

@@ -1,6 +1,7 @@
 import os
 from PySide6.QtWidgets import (QMessageBox)
 from modules.UML import GameMakerLib as gml
+import loc
 class FileSave():
     def __init__(self):
         super().__init__()
@@ -11,13 +12,13 @@ class FileSave():
             os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            QMessageBox.information(self, "成功", "文件保存成功！")
+            QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectSaved"))
         except Exception as e:
-            QMessageBox.critical(self, "错误", f"保存失败：{str(e)}")
+            QMessageBox.critical(self, loc.translate("locError"), loc.translate("locProjectLoadFailed")+str(e))
 
     def save_file_gm(self, path, content):
         try:
             gml.Write(path, content)
-            QMessageBox.information(self, "成功", "文件保存成功！")
+            QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectSaved"))
         except Exception as e:
-            QMessageBox.critical(self, "错误", f"保存失败：{str(e)}")
+            QMessageBox.critical(self, loc.translate("locError"), loc.translate("locProjectLoadFailed")+str(e))
