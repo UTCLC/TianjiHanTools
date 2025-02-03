@@ -1,1 +1,0 @@
-nuitka --standalone --enable-plugin=pyside6 --windows-console-mode=disable --include-data-dir=assets=assets --include-data-files=modules/UML/*.dll=modules/UML/ --output-filename=TJHanTools.exe --plugin-enable=upx --upx-binary="E:\Tools\upx.exe" .\__init__.py

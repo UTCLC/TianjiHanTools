@@ -4,7 +4,7 @@ import json
 import datetime
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QFileDialog
-import loc
+import core.loc as loc
 class ProjectManager(QObject):
     project_loaded = Signal(dict)  # 工程加载成功信号
     project_saved = Signal()       # 工程保存成功信号

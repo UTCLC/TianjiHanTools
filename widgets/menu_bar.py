@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QMenuBar
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QKeySequence, QAction
-import loc
+import core.loc as loc
 
 class ProjectMenuBar(QMenuBar):
     new_project = Signal(object)

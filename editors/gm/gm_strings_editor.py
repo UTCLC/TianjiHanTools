@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QHBoxLayout, QPlainTextEdit, QVBoxLayout, QLabel
 from .gm_base_editor import GMBaseEditor
 from modules.UML import GameMakerLib as gml
-import loc
+import core.loc as loc
 
 class GMStringsEditor(GMBaseEditor):
     def _handle_modify(self):

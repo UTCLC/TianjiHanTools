@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QHBoxLayout, QPlainTextEdit
 from .base_editor import BaseEditor
-import loc
+import core.loc as loc
 
 class TextEditor(BaseEditor):
     def _handle_modify(self):

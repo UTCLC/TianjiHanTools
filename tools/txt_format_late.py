@@ -8,7 +8,7 @@ import json
 import os
 import re
 from collections import defaultdict
-import loc
+import core.loc as loc
 
 jap = re.compile(r'[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7A3]')
 

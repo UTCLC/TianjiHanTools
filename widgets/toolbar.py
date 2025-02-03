@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QToolBar
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import Signal, QSize
-import loc
+import core.loc as loc
 
 class MainToolBar(QToolBar):
     new_project = Signal(object)

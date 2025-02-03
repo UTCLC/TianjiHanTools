@@ -3,7 +3,7 @@ from PySide6.QtWidgets import (QDockWidget, QTreeWidget, QTreeWidgetItem,
 from PySide6.QtCore import Qt, Signal
 import os
 import re
-import loc
+import core.loc as loc
 
 class FileExplorer(QDockWidget):
     file_double_clicked = Signal(str)  # 发送相对路径

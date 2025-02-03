@@ -1,7 +1,7 @@
 import json
 from PySide6.QtWidgets import QHBoxLayout, QTableWidget, QTableWidgetItem
 from .base_editor import BaseEditor
-import loc
+import core.loc as loc
 
 class JSONEditor(BaseEditor):
     def init_ui(self):

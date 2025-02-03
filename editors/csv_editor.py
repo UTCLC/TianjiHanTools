@@ -2,8 +2,8 @@ import csv
 from PySide6.QtWidgets import (QTableWidget, QTableWidgetItem, QHBoxLayout)
 from .base_editor import BaseEditor
 from PySide6.QtCore import Qt
-from utils import detect_encoding
-import loc
+from tools.utils import detect_encoding
+import core.loc as loc
 
 class CSVEditor(BaseEditor):
     def init_ui(self):

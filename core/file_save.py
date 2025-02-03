@@ -1,7 +1,7 @@
 import os
 from PySide6.QtWidgets import (QMessageBox)
 from modules.UML import GameMakerLib as gml
-import loc
+import core.loc as loc
 class FileSave():
     def __init__(self):
         super().__init__()

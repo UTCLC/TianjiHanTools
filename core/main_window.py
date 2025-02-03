@@ -9,7 +9,7 @@ import datetime
 from editors.text_editor import TextEditor
 from tools.tools_register import ToolsRegister
 from core.file_save import FileSave as fs
-import loc
+import core.loc as loc
 
 class LocalizationIDE(QMainWindow):
     def __init__(self):
