@@ -1,6 +1,7 @@
 import json
 from PySide6.QtWidgets import QHBoxLayout, QTableWidget, QTableWidgetItem
 from .base_editor import BaseEditor
+import loc
 
 class JSONEditor(BaseEditor):
     def init_ui(self):
@@ -14,7 +15,7 @@ class JSONEditor(BaseEditor):
             target_data = source_data.copy()
         
         self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["键", "源文本", "目标文本"])
+        self.table.setHorizontalHeaderLabels([loc.translate("locKey"), loc.translate("locSrcTxt"), loc.translate("locTarTxt")])
         self.table.setRowCount(len(source_data))
         
         for row, (key, value) in enumerate(source_data.items()):

@@ -8,27 +8,28 @@ import json
 import os
 import re
 from collections import defaultdict
+import loc
 
 jap = re.compile(r'[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7A3]')
 
 class RuleDialog(QDialog):
     def __init__(self, rule=None, parent=None):
         super().__init__(parent)
-        self.setWindowTitle('规则编辑器' if rule else '添加规则')
+        self.setWindowTitle(loc.translate("locRuleEditor") if rule else loc.translate("locAddRule"))
         layout = QVBoxLayout(self)
         
-        self.name_label = QLabel("分类名称:")
+        self.name_label = QLabel(loc.translate("locNameInfo")+":")
         self.name_edit = QLineEdit()
         layout.addWidget(self.name_label)
         layout.addWidget(self.name_edit)
         
-        self.type_label = QLabel("条件类型:")
+        self.type_label = QLabel(loc.translate("locTypeInfo")+":")
         self.type_combo = QComboBox()
         self.type_combo.addItems(["start_with", "regex", "contains_space", "default"])
         layout.addWidget(self.type_label)
         layout.addWidget(self.type_combo)
         
-        self.param_label = QLabel("参数:")
+        self.param_label = QLabel(loc.translate("locParam")+":")
         self.param_edit = QLineEdit()
         layout.addWidget(self.param_label)
         layout.addWidget(self.param_edit)
@@ -56,7 +57,7 @@ class ToolTxTFormatLate(QDockWidget):
     file_double_clicked = Signal(str)
     
     def __init__(self, parent=None):
-        super().__init__("本地化文本规范化", parent)
+        super().__init__(loc.translate("locLocalizedStrStandardization"), parent)
         self.classification_rules = [
             {'name': 'starred', 'type': 'start_with', 'param': '*'},
             {'name': 'spaced', 'type': 'regex', 'param': r'[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7A3 ]'},
@@ -66,10 +67,10 @@ class ToolTxTFormatLate(QDockWidget):
         self.tabs = QTabWidget()
         self.classification_tab = QWidget()
         self.create_classification_tab()
-        self.tabs.addTab(self.create_convert_tab(), "转换")
-        self.tabs.addTab(self.create_merge_tab(), "合并")
-        self.tabs.addTab(self.create_upgrade_tab(), "升级")
-        self.tabs.addTab(self.classification_tab, "分类管理")
+        self.tabs.addTab(self.create_convert_tab(), loc.translate("locConvert"))
+        self.tabs.addTab(self.create_merge_tab(), loc.translate("locMerge"))
+        self.tabs.addTab(self.create_upgrade_tab(), loc.translate("locUpgrade"))
+        self.tabs.addTab(self.classification_tab, loc.translate("locClassification"))
         
         self.setWidget(self.tabs)
         self.update_rules_tree()
@@ -78,19 +79,19 @@ class ToolTxTFormatLate(QDockWidget):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         
-        group = QGroupBox("转换 TXT 到 JSON")
+        group = QGroupBox(loc.translate("locConvertTxt2Json"))
         group_layout = QVBoxLayout()
         
         self.convert_input_edit = QLineEdit()
-        self.convert_input_btn = QPushButton("选择输入文件")
+        self.convert_input_btn = QPushButton(loc.translate("locSelectInputFile"))
         self.convert_output_edit = QLineEdit()
-        self.convert_output_btn = QPushButton("选择输出目录")
-        self.convert_btn = QPushButton("执行转换")
+        self.convert_output_btn = QPushButton(loc.translate("locSelectOutputDir"))
+        self.convert_btn = QPushButton(loc.translate("locConvert"))
         
-        group_layout.addWidget(QLabel("输入 TXT 文件:"))
+        group_layout.addWidget(QLabel(loc.translate("locInputFile")))
         group_layout.addWidget(self.convert_input_edit)
         group_layout.addWidget(self.convert_input_btn)
-        group_layout.addWidget(QLabel("输出目录:"))
+        group_layout.addWidget(QLabel(loc.translate("locOutputDir")))
         group_layout.addWidget(self.convert_output_edit)
         group_layout.addWidget(self.convert_output_btn)
         group_layout.addWidget(self.convert_btn)
@@ -110,19 +111,19 @@ class ToolTxTFormatLate(QDockWidget):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         
-        group = QGroupBox("合并 JSON 到 TXT")
+        group = QGroupBox(loc.translate("locMergeJson2Txt"))
         group_layout = QVBoxLayout()
         
         self.merge_input_edit = QLineEdit()
-        self.merge_input_btn = QPushButton("选择输入目录")
+        self.merge_input_btn = QPushButton(loc.translate("locSelectInputDir"))
         self.merge_output_edit = QLineEdit()
-        self.merge_output_btn = QPushButton("选择输出文件")
-        self.merge_btn = QPushButton("执行合并")
+        self.merge_output_btn = QPushButton(loc.translate("locSelectOutputFile"))
+        self.merge_btn = QPushButton(loc.translate("locMerge"))
         
-        group_layout.addWidget(QLabel("输入 JSON 目录:"))
+        group_layout.addWidget(QLabel(loc.translate("locInputDir")))
         group_layout.addWidget(self.merge_input_edit)
         group_layout.addWidget(self.merge_input_btn)
-        group_layout.addWidget(QLabel("输出 TXT 文件:"))
+        group_layout.addWidget(QLabel(loc.translate("locOutputFile")))
         group_layout.addWidget(self.merge_output_edit)
         group_layout.addWidget(self.merge_output_btn)
         group_layout.addWidget(self.merge_btn)
@@ -142,29 +143,29 @@ class ToolTxTFormatLate(QDockWidget):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         
-        group = QGroupBox("版本升级")
+        group = QGroupBox(loc.translate("locUpgradeTxt"))
         group_layout = QVBoxLayout()
         
         self.upgrade_old_txt_edit = QLineEdit()
-        self.upgrade_old_txt_btn = QPushButton("选择旧TXT")
+        self.upgrade_old_txt_btn = QPushButton(loc.translate("locSelectOldTxt"))
         self.upgrade_old_json_edit = QLineEdit()
-        self.upgrade_old_json_btn = QPushButton("选择旧JSON目录")
+        self.upgrade_old_json_btn = QPushButton(loc.translate("locSelectOldJson"))
         self.upgrade_new_txt_edit = QLineEdit()
-        self.upgrade_new_txt_btn = QPushButton("选择新TXT")
+        self.upgrade_new_txt_btn = QPushButton(loc.translate("locSelectNewTxt"))
         self.upgrade_output_edit = QLineEdit()
-        self.upgrade_output_btn = QPushButton("选择输出目录")
-        self.upgrade_btn = QPushButton("执行升级")
+        self.upgrade_output_btn = QPushButton(loc.translate("locSelectOutputDir"))
+        self.upgrade_btn = QPushButton(loc.translate("locUpgrade"))
         
-        group_layout.addWidget(QLabel("旧 TXT 文件:"))
+        group_layout.addWidget(QLabel(loc.translate("locOldTxt")))
         group_layout.addWidget(self.upgrade_old_txt_edit)
         group_layout.addWidget(self.upgrade_old_txt_btn)
-        group_layout.addWidget(QLabel("旧 JSON 目录:"))
+        group_layout.addWidget(QLabel(loc.translate("locNewTxt")))
         group_layout.addWidget(self.upgrade_old_json_edit)
         group_layout.addWidget(self.upgrade_old_json_btn)
-        group_layout.addWidget(QLabel("新 TXT 文件:"))
+        group_layout.addWidget(QLabel(loc.translate("locOutputDir")))
         group_layout.addWidget(self.upgrade_new_txt_edit)
         group_layout.addWidget(self.upgrade_new_txt_btn)
-        group_layout.addWidget(QLabel("输出目录:"))
+        group_layout.addWidget(QLabel(loc.translate("locOutputDir")))
         group_layout.addWidget(self.upgrade_output_edit)
         group_layout.addWidget(self.upgrade_output_btn)
         group_layout.addWidget(self.upgrade_btn)
@@ -185,15 +186,15 @@ class ToolTxTFormatLate(QDockWidget):
     def create_classification_tab(self):
         layout = QVBoxLayout(self.classification_tab)
         self.rules_tree = QTreeWidget()
-        self.rules_tree.setHeaderLabels(["名称", "类型", "参数"])
+        self.rules_tree.setHeaderLabels([loc.translate("locName"), loc.translate("locType"), loc.translate("locParam")])
         layout.addWidget(self.rules_tree)
         
         btn_layout = QHBoxLayout()
-        self.add_btn = QPushButton("添加")
-        self.edit_btn = QPushButton("编辑")
-        self.delete_btn = QPushButton("删除")
-        self.up_btn = QPushButton("上移")
-        self.down_btn = QPushButton("下移")
+        self.add_btn = QPushButton(loc.translate("locAdd"))
+        self.edit_btn = QPushButton(loc.translate("locEdit"))
+        self.delete_btn = QPushButton(loc.translate("locDelete"))
+        self.up_btn = QPushButton(loc.translate("locMoveUp"))
+        self.down_btn = QPushButton(loc.translate("locMoveDn"))
         
         btn_layout.addWidget(self.add_btn)
         btn_layout.addWidget(self.edit_btn)
@@ -260,17 +261,17 @@ class ToolTxTFormatLate(QDockWidget):
             self.classification_rules.insert(index+1, self.classification_rules.pop(index))
             self.update_rules_tree()
     def select_file(self, edit_widget):
-        path, _ = QFileDialog.getOpenFileName(self, "选择文件")
+        path, _ = QFileDialog.getOpenFileName(self, loc.translate("locSelectFile"))
         if path:
             edit_widget.setText(path)
 
     def select_directory(self, edit_widget):
-        path = QFileDialog.getExistingDirectory(self, "选择目录")
+        path = QFileDialog.getExistingDirectory(self, loc.translate("locSelectDir"))
         if path:
             edit_widget.setText(path)
 
     def save_file(self, edit_widget):
-        path, _ = QFileDialog.getSaveFileName(self, "保存文件")
+        path, _ = QFileDialog.getSaveFileName(self, loc.translate("locSaveFile"))
         if path:
             edit_widget.setText(path)
 
@@ -295,7 +296,7 @@ class ToolTxTFormatLate(QDockWidget):
             output_dir = self.convert_output_edit.text()
             
             if not os.path.exists(input_txt):
-                raise ValueError("输入文件不存在")
+                raise ValueError("Input file not exists: "+input_txt)
             
             os.makedirs(output_dir, exist_ok=True)
             
@@ -307,7 +308,7 @@ class ToolTxTFormatLate(QDockWidget):
             for line_num, line in enumerate(lines):
                 category = self.categorize_line(line)
                 if not category:
-                    raise ValueError(f"无法分类第 {line_num} 行: {line}")
+                    raise ValueError(f"Can't categorize line {line_num}: {line}")
                 categories[category][str(line_num)] = line
             
             for name, data in categories.items():
@@ -315,9 +316,9 @@ class ToolTxTFormatLate(QDockWidget):
                 with open(output_path, 'w', encoding='utf-8') as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
             
-            QMessageBox.information(self, "完成", "转换完成")
+            QMessageBox.information(self, loc.translate("locFinished"), loc.translate("locConvertFinished"))
         except Exception as e:
-            QMessageBox.critical(self, "错误", str(e))
+            QMessageBox.critical(self, loc.translate("locError"), str(e))
 
     def do_merge(self):
         try:
@@ -349,9 +350,9 @@ class ToolTxTFormatLate(QDockWidget):
             with open(output_txt, 'w', encoding='utf-8') as f:
                 f.write('\n'.join(merged))
             
-            QMessageBox.information(self, "完成", "合并完成")
+            QMessageBox.information(self, loc.translate("locFinished"), loc.translate("locMergeFinished"))
         except Exception as e:
-            QMessageBox.critical(self, "错误", str(e))
+            QMessageBox.critical(self, loc.translate("locError"), str(e))
 
     def do_upgrade(self):
         try:
@@ -406,6 +407,6 @@ class ToolTxTFormatLate(QDockWidget):
                 with open(path, 'w', encoding='utf-8') as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
             
-            QMessageBox.information(self, "完成", "升级完成")
+            QMessageBox.information(self, loc.translate("locFinished"), loc.translate("locUpgradeFinished"))
         except Exception as e:
-            QMessageBox.critical(self, "错误", str(e))
+            QMessageBox.critical(self, loc.translate("locError"), str(e))

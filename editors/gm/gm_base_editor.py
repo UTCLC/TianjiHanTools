@@ -11,7 +11,7 @@ class GMBaseEditor(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        raise NotImplementedError("必须实现init_ui方法")
+        raise NotImplementedError("Method init_ui need to be implement")
         
     def save(self):
-        raise NotImplementedError("必须实现save方法")
+        raise NotImplementedError("Method save need to be implement")

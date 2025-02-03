@@ -10,7 +10,7 @@ class BaseEditor(QWidget):
         self.init_ui()
         
     def init_ui(self):
-        raise NotImplementedError("必须实现init_ui方法")
+        raise NotImplementedError("Method init_ui need to be implement")
         
     def get_content(self):
-        raise NotImplementedError("必须实现get_content方法")
+        raise NotImplementedError("Method get_content need to be implement")

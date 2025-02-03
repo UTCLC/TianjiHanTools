@@ -9,6 +9,7 @@ import datetime
 from editors.text_editor import TextEditor
 from tools.tools_register import ToolsRegister
 from core.file_save import FileSave as fs
+import loc
 
 class LocalizationIDE(QMainWindow):
     def __init__(self):
@@ -18,7 +19,7 @@ class LocalizationIDE(QMainWindow):
 
     def _init_basic_ui(self):
         # 极简初始化
-        self.setWindowTitle("天机汉化工具 | TianjiHanTools")
+        self.setWindowTitle(loc.translate("locAppName"))
         self.resize(1200, 800)
         self.setCentralWidget(QWidget())
         self.setWindowState(Qt.WindowActive)
@@ -35,7 +36,7 @@ class LocalizationIDE(QMainWindow):
         self.menu_bar = ProjectMenuBar()
         self.setMenuBar(self.menu_bar)
         # 立即显示进度
-        self.statusBar().showMessage("正在加载核心组件...")
+        self.statusBar().showMessage(loc.translate("locLoadingCore"))
 
     def _stage2_init(self):
         from editors.json_editor import JSONEditor
@@ -99,13 +100,13 @@ class LocalizationIDE(QMainWindow):
         self.tabs.setMovable(True)
         self.setCentralWidget(self.tabs)
 
-        self.statusBar().showMessage("准备就绪", 3000)
+        self.statusBar().showMessage(loc.translate("locReady"), 3000)
 
     def exit(self):
         reply = QMessageBox.question(
             self,
-            '确认退出',
-            '确定要退出程序吗？',
+            loc.translate("locConfirmQuit"),
+            loc.translate("locConfirmQuitDialg"),
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
@@ -118,24 +119,24 @@ class LocalizationIDE(QMainWindow):
     def on_project_loaded(self, project_data):
         """处理工程加载完成"""
         self.file_explorer.load_project(project_data)
-        QMessageBox.information(self, "成功", "工程加载成功！")
+        QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectLoaded"))
 
     def on_project_saved(self):
         """处理工程保存完成"""
-        QMessageBox.information(self, "成功", "工程保存成功！")
+        QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectSaved"))
 
     def show_error(self, message):
         """显示错误信息"""
-        QMessageBox.critical(self, "错误", message)
+        QMessageBox.critical(self, loc.translate("locError"), message)
 
     def open_project(self):
-        project_folder = QFileDialog.getExistingDirectory(self, "选择工程文件夹")
+        project_folder = QFileDialog.getExistingDirectory(self, loc.translate("locSelectProjFolder"))
         if not project_folder:
             return
 
         project_file = os.path.join(project_folder, 'project.json')
         if not os.path.exists(project_file):
-            QMessageBox.critical(self, "错误", "无效的工程目录")
+            QMessageBox.critical(self, loc.translate("locError"), loc.translate("locInvalidProjDir"))
             return
 
         try:
@@ -143,10 +144,10 @@ class LocalizationIDE(QMainWindow):
                 self.project_data = json.load(f)
             
             self.file_explorer.load_project(self.project_data)
-            QMessageBox.information(self, "成功", "工程加载成功！")
+            QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectLoaded"))
             
         except Exception as e:
-            QMessageBox.critical(self, "错误", f"加载工程失败：{str(e)}")
+            QMessageBox.critical(self, loc.translate("locError"), loc.translate("locProjectLoadFailed")+str(e))
 
     def save_project(self):
         if not self.project_data:
@@ -159,10 +160,10 @@ class LocalizationIDE(QMainWindow):
             with open(project_file, 'w') as f:
                 json.dump(self.project_data, f, indent=4)
             
-            QMessageBox.information(self, "成功", "工程保存成功！")
+            QMessageBox.information(self, loc.translate("locSuccess"), loc.translate("locProjectSaved"))
             
         except Exception as e:
-            QMessageBox.critical(self, "错误", f"保存失败：{str(e)}")
+            QMessageBox.critical(self, loc.translate("locError"), loc.translate("locProjectSaveFailed")+str(e))
 
     def _populate_tree(self, parent, path):
         if os.path.isdir(path):
@@ -191,7 +192,7 @@ class LocalizationIDE(QMainWindow):
             tab.rel_path = rel_path  # 存储关联文件路径
             layout = QVBoxLayout(tab)
             layout.addWidget(editor)
-            save_btn = QPushButton("保存")
+            save_btn = QPushButton(loc.translate("locSave"))
             save_btn.clicked.connect(lambda: fs.save_file_raw(self, target_path, editor.get_content()))
             layout.addWidget(save_btn)
             self.tabs.addTab(tab, os.path.basename(rel_path))
@@ -216,7 +217,7 @@ class LocalizationIDE(QMainWindow):
             tab.rel_path = rel_path
             layout = QVBoxLayout(tab)
             layout.addWidget(editor)
-            save_btn = QPushButton("写入 data")
+            save_btn = QPushButton(loc.translate("locWriteIntoData"))
             target_path = os.path.join(self.project_manager.current_project['target'], data_path)
             save_btn.clicked.connect(lambda: fs.save_file_gm(self, target_path, self.file_explorer.data[1][data_path]))
             layout.addWidget(save_btn)

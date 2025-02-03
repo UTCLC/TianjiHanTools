@@ -3,18 +3,19 @@ from PySide6.QtWidgets import (QDockWidget, QTreeWidget, QTreeWidgetItem,
 from PySide6.QtCore import Qt, Signal
 import os
 import re
+import loc
 
 class FileExplorer(QDockWidget):
     file_double_clicked = Signal(str)  # 发送相对路径
     
     def __init__(self, parent=None):
-        super().__init__("文件浏览器", parent)
+        super().__init__(loc.translate("locFileExplorer"), parent)
         self.data = [{},{}]
         
         # 创建搜索组件
         self.search_line = QLineEdit()
-        self.search_line.setPlaceholderText("搜索...")
-        self.regex_checkbox = QCheckBox("正则表达式")
+        self.search_line.setPlaceholderText(loc.translate("locSearch"))
+        self.regex_checkbox = QCheckBox(loc.translate("locRegEx"))
         
         # 创建布局
         search_layout = QHBoxLayout()
@@ -23,7 +24,7 @@ class FileExplorer(QDockWidget):
         
         # 创建树部件
         self.tree = QTreeWidget()
-        self.tree.setHeaderLabel("项目文件")
+        self.tree.setHeaderLabel(loc.translate("locProjectFile"))
         self.tree.itemDoubleClicked.connect(self.on_item_double_clicked)
 
         # 主容器布局
