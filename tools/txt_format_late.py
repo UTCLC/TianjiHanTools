@@ -58,7 +58,7 @@ class ToolTxTFormatLate(QDockWidget):
     def __init__(self, parent=None):
         super().__init__("本地化文本规范化", parent)
         self.classification_rules = [
-            {'name': 'starred', 'type': 'start_with', 'param': '*'},
+            {'name': 'starred', 'type': 'start_with', 'param': '* '},
             {'name': 'spaced', 'type': 'regex', 'param': r'[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7A3 ]'},
             {'name': 'others', 'type': 'default'}
         ]
